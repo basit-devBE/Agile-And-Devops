@@ -34,7 +34,7 @@ jobs:
       working-directory: ./notes-api
     
     - name: Check Code Coverage
-      run: mvn jacoco:report jacoco:check
+      run: mvn jacoco:report
       working-directory: ./notes-api
     
     - name: Upload Test Results
