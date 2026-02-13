@@ -1,5 +1,7 @@
 package com.notes.api.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -12,6 +14,7 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> handleValidationErrors(MethodArgumentNotValidException ex) {
@@ -24,6 +27,7 @@ public class GlobalExceptionHandler {
             errors.put(fieldName, errorMessage);
         });
         
+        logger.warn("Validation error: {}", errors);
         response.put("status", "error");
         response.put("errors", errors);
         return ResponseEntity.badRequest().body(response);
@@ -31,6 +35,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Map<String, String>> handleRuntimeException(RuntimeException ex) {
+        logger.error("Runtime exception: {}", ex.getMessage(), ex);
         Map<String, String> response = new HashMap<>();
         response.put("status", "error");
         response.put("message", ex.getMessage());
@@ -39,6 +44,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleGenericException(Exception ex) {
+        logger.error("Unexpected error: {}", ex.getMessage(), ex);
         Map<String, String> response = new HashMap<>();
         response.put("status", "error");
         response.put("message", "An unexpected error occurred");

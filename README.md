@@ -270,14 +270,60 @@ open target/site/jacoco/index.html
 
 ## Key Achievements
 
-\u2705 **Complete CRUD API** - All note operations functional  
-\u2705 **Secure Authentication** - JWT-based with password encryption  
-\u2705 **Automated Testing** - 65% code coverage  
-\u2705 **CI/CD Pipeline** - Automated build and test  
-\u2705 **Containerized** - Docker-ready deployment  
-\u2705 **Authorization** - Users can only access their own notes  
-\u2705 **Error Handling** - Consistent error responses  
-\u2705 **Input Validation** - Bean validation on all inputs
+✅ **Complete CRUD API** - All note operations functional  
+✅ **Secure Authentication** - JWT-based with password encryption  
+✅ **Automated Testing** - 64% code coverage with 12 tests  
+✅ **CI/CD Pipeline** - Automated build and test on every push  
+✅ **Containerized** - Docker-ready deployment  
+✅ **Authorization** - Users can only access their own notes  
+✅ **Error Handling** - Consistent error responses with logging  
+✅ **Input Validation** - Bean validation on all inputs  
+✅ **Monitoring** - Spring Boot Actuator with health checks  
+✅ **Logging** - SLF4J structured logging throughout application
+
+---
+
+## Monitoring & Observability
+
+### Health Check
+
+```bash
+curl http://localhost:8080/actuator/health
+```
+
+**Response:**
+```json
+{
+  "status": "UP",
+  "components": {
+    "db": {"status": "UP"},
+    "diskSpace": {"status": "UP"},
+    "ping": {"status": "UP"}
+  }
+}
+```
+
+### Metrics
+
+```bash
+curl http://localhost:8080/actuator/metrics
+```
+
+### Application Logs
+
+All API operations are logged:
+- User registration/login attempts
+- Note CRUD operations
+- Validation errors
+- Runtime exceptions
+
+**Example Log Output:**
+```
+2026-02-13 12:00:00 - Registration attempt for email: user@example.com
+2026-02-13 12:00:01 - User registered successfully: user@example.com
+2026-02-13 12:00:05 - Creating note for user: user@example.com
+2026-02-13 12:00:05 - Note created with ID: 1 for user: user@example.com
+```
 
 ---
 
